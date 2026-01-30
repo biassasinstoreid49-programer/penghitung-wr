@@ -1,39 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Penghitung WR ML</title>
+    <style>
+    body { text-align:center; padding:20px; background:#f0f0f0; font-family:Arial; }
+    input, button { padding:10px; margin:5px; }
+    button { background:orange; color:white; border:none; }
+    #hasil { margin-top:20px; font-size:18px; font-weight:bold; }
+    </style>
+</head>
 <body>
+    <p>
+    <a href="https://tiktok.com/@biasasin">TikTok: @biasasin</a> | 
+    <a href="https://wa.me/628137378250">WA: 08137378250</a>
+    </p>
 
-<p>
-<a href="https://www.tiktok.com/@biasasin" target="_blank" style="color:orange;text-decoration:none;">
-TikTok: @biasasin
-</a> | 
-<a href="https://wa.me/628137378250" target="_blank" style="color:orange;text-decoration:none;">
-WA: 08137378250
-</a>
-</p>
+    <h2>Penghitung Win Rate ML</h2>
 
-<h2>Penghitung Win Rate ML</h2>
+    <input type="number" id="match" placeholder="Total Match"><br>
+    <input type="number" id="wr" placeholder="WR Sekarang (%)"><br>
+    <input type="number" id="target" placeholder="Target WR (%)"><br>
 
-<input type="number" id="match" placeholder="Total Match">
-<input type="number" id="wr" placeholder="WR Sekarang (%)">
-<input type="number" id="target" placeholder="Target WR (%)">
+    <button onclick="hitung()">Hitung</button>
 
-<button onclick="hitung()">Hitung</button>
+    <div id="hasil"></div>
 
-<div id="hasil"></div>
-
-<script>
-function hitung() {
-
-let match = document.getElementById("match").value;
-let wr = document.getElementById("wr").value;
-let target = document.getElementById("target").value;
-
-let win = match * (wr / 100);
-let targetWin = ((target / 100) * match - win) / (1 - (target / 100));
-
-targetWin = Math.ceil(targetWin);
-
-document.getElementById("hasil").innerHTML =
-"Kamu butuh win berturut-turut: " + targetWin + " match";
-}
-</script>
-
+    <script>
+    function hitung() {
+        var match = document.getElementById("match").value;
+        var wr = document.getElementById("wr").value;
+        var target = document.getElementById("target").value;
+        
+        if(match === "" || wr === "" || target === "") {
+            alert("Isi semua kolom!");
+            return;
+        }
+        
+        match = parseFloat(match);
+        wr = parseFloat(wr);
+        target = parseFloat(target);
+        
+        var win = match * (wr / 100);
+        var butuh = ((target / 100) * match - win) / (1 - (target / 100));
+        butuh = Math.ceil(butuh);
+        
+        document.getElementById("hasil").innerHTML = 
+            "Butuh win streak: <span style='color:orange'>" + butuh + "</span> match";
+    }
+    </script>
 </body>
+</html>
